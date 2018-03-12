@@ -1,4 +1,5 @@
 ---
+
 layout:       post                                          # 使用的布局（不需要改）
 title:        Android-Notification点击按钮改变内容方案      # 标题 
 subtitle:     Android-Notification点击按钮改变内容方案      # 副标题
@@ -9,6 +10,7 @@ catalog:      true                                          # 是否归档
 tags:                                                       # 标签
     - Android
 ---
+
 
 
 最近做项目的时候，遇到一个需求：发送一个带加减按钮和一个数字的通知，点击按钮后，通知的数字相应的要改变。
