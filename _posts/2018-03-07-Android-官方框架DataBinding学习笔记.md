@@ -389,7 +389,7 @@ public class StaticClass
 ```
 其中"<"和">"要使用Html的转义代替，此时AndroidStudio可能会爆红，可是是正确的，可以正确运行。
 
-```Map```集合与其类似
+`Map`集合与其类似
 ```
 android:text="@{map["key"]}"
 ```
