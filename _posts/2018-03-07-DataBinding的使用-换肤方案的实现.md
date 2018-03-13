@@ -12,8 +12,7 @@ tags:                                                       # 标签
 ---
 在学习了```DataBinding```框架后，就想着这个方案在一些场景下的运用，于是根据这个框架的特性，写出了一个换肤的方案，先看效果图：
 
-![DataBinding换肤](http://upload-images.jianshu.io/upload_images/2292129-8a0a602fed0751f2.gif?imageMogr2/auto-orient/strip)
-
+![效果图](https://note.youdao.com/yws/public/resource/b2be8c9fae448267c62916307f84aeb4/xmlnote/2E344C07B41642C39BC102D4AB8C0CC7/984)
 在看下面的实现之前，希望你对```DataBinding```框架有基本的认识。如果你不够了解，可以参考我之前的一片文章[Android 官方框架DataBinding学习笔记](http://www.jianshu.com/p/1d9c6a1f6d0d)，或者参考[官方文档](https://developer.android.google.cn/topic/libraries/data-binding/index.html)。
 
 这个换肤的方案支持字体大小、颜色，背景色以及图片的切换，所以先创建实体类：
@@ -318,4 +317,3 @@ public class StyleBean extends BaseObservable
 这样点击按钮就能够弹窗选择字体大小或者白天黑夜了。
 
 [项目的GitHub地址](https://github.com/xingxingxiaoyu/SkinPeeler)
-

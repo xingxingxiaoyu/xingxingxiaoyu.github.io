@@ -10,9 +10,8 @@ tags:                                                       # 标签
     - Android
     - DataBinding
 ---
-DataBinding是谷歌官方发布的一个框架，它的目的是降低布局和逻辑的耦合性，使代码的逻辑更清晰。它能够很简单的省去```findViewById()```的步骤，大量减少```Activity```的代码，数据直接能写在```layout```文件上，而且它能自动进行空检测，很多地方对象为空不会引起空指针异常。
+DataBinding是谷歌官方发布的一个框架，它的目的是降低布局和逻辑的耦合性，使代码的逻辑更清晰。它能够很简单的省去```findViewById()``` 的步骤，大量减少```Activity``` 的代码，数据直接能写在```layout``` 文件上，而且它能自动进行空检测，很多地方对象为空不会引起空指针异常。
 
-![DataBinding](http://upload-images.jianshu.io/upload_images/2292129-c9d121a318a93452.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 下面我将从以下几个方面介绍DataBinding框架：
 1. DataBinding在AndroidStudio下的环境搭建
@@ -22,7 +21,9 @@ DataBinding是谷歌官方发布的一个框架，它的目的是降低布局和
 5. 观察者对象
 6. 生成Binding
 7. 属性setters
-###DataBinding在AndroidStudio下的环境搭建
+
+### DataBinding在AndroidStudio下的环境搭建
+
 由于DataBinding是谷歌的官方框架，所以环境搭建很简单，只需在model下的build.gradle文件上加上如下代码：
 ```
 android {
@@ -35,7 +36,7 @@ android {
 ```
 不过这要求你的Gradle是 1.5.0-alpha1或者更新的版本，AndroidStudio1.3或更新的版本才可以。DataBinding是一个兼容库，他能运行在Android2.1以上（Api level7+）。
 
-###DataBinding的简单使用
+### DataBinding的简单使用
 DataBinding的```layout```文件与我们一般写的```layout```文件不一样，它包含数据和视图两方面，所以其的```layout```文件如下:
 ```
 <?xml version="1.0" encoding="utf-8"?>
@@ -76,8 +77,8 @@ public class User
    }
 }
 ```
-当在```layout```文件中写```@{user.firstName}```时，会使用```user```对象的```firstName```属性。
-一个用DataBinding的方式写出的```layout```文件会产生一个类，类名为```layout```文件名的驼峰式写法加上```Binding```,所以```activity_main.xml```会对应于```ActivityMainBinding```类，这个类包含了```layout```文件的性能，包括数据和视图两部分，可以用如下方式绑定```Activity```和布局文件：
+当在```layout``` 文件中写```@{user.firstName}``` 时，会使用```user``` 对象的```firstName``` 属性。
+一个用DataBinding的方式写出的```layout``` 文件会产生一个类，类名为```layout``` 文件名的驼峰式写法加上```Binding``` ,所以```activity_main.xml``` 会对应于```ActivityMainBinding```类，这个类包含了```layout``` 文件的性能，包括数据和视图两部分，可以用如下方式绑定```Activity``` 和布局文件：
 ```
 DataBindingUtil.setContentView(MainActivity.this, R.layout.main_activity);
 ```
@@ -100,8 +101,7 @@ public class MainActivity extends AppCompatActivity
     }
 }
 ```
-运行效果：
-![DataBinding学习笔记](http://upload-images.jianshu.io/upload_images/2292129-a67d8e4c25c834eb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 如此就完成了DataBinding的最简单体验。
 
 也可以把User类写成这样：
@@ -166,13 +166,13 @@ com.example.databindingtest E/User: getFirstName
 ```
 所以说```getFirstName()```方法被调用了，而```firstName()```方法并没有被调用。
 
-###DataBinding的事件处理
-DataBinding允许我们直接将事件写在控件上，事件的属性名决定于```Listener```的方法名，例如长按事件``` View.OnLongClickListener```有方法```onLongClick()```,那么其对应的属性为```android:onLongClick```。
+### DataBinding的事件处理
+DataBinding允许我们直接将事件写在控件上，事件的属性名决定于```Listener```的方法名，例如长按事件```View.OnLongClickListener```有方法```onLongClick()```,那么其对应的属性为```android:onLongClick```。
 有两种处理事件的方式：
 - Method References 事件为一个对象及其的方法
 - Listener Bindings 事件为一个Lambda表达式
 
-######Method References
+###### Method References
 Method References设置事件和使用```android:onClick```属性，将方法写在```Activity```是很相似的，主要的区别是DataBinding的Method References对表达式的检验是在编译期，因此如果方法为空或者不正确，会在编译期被发现。且它的方法不必写在```Activity```里。
 
 事件处理类：
@@ -191,7 +191,7 @@ public class MyHandlers
 }
 ```
 注意，方法的输入参数和返回值必须和事件监听器的方法一样。
-```xml```文件：
+```xml``` 文件：
 ```
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -215,7 +215,9 @@ public class MyHandlers
     </LinearLayout>
 </layout>
 ```
+
 ```Activity```加上
+
 ```
 mBinding.setHandler(new MyHandlers());
 ```
@@ -224,7 +226,7 @@ mBinding.setHandler(new MyHandlers());
 com.example.databindingtest E/MyHandlers: onClick
 com.example.databindingtest E/MyHandlers: onLongClick
 ```
-######Listener Bindings
+###### Listener Bindings
 Listener Bindings是当事件发生的时候绑定表达式，它和Method References是类似的，但是它能绑定任意的输入类型方法，而不必和事件监听器的一样，不过返回值要和事件监听器一样。它的表达式要写成Lambda表达式。
 
 事件处理类：
@@ -269,7 +271,7 @@ public class Presenter
 </layout>
 
 ```
-```Activity```加上
+```Activity``` 加上
 ```
 mBinding.setPresenter(new Presenter());
 ```
@@ -316,9 +318,9 @@ android:onClick="@{(view)->presenter.click(view,task)}"
 |ZoomControls| setOnZoomInClickListener(View.OnClickListener)|android:onZoomIn|
 |ZoomControls|setOnZoomOutClickListener(View.OnClickListener)|android:onZoomOut|
 
-###layout文件细节
+### layout文件细节
 前面我们对于Databinding的布局文件做了简单的介绍，现在详细介绍布局文件细节。
-######类的导入
+###### 类的导入
 就像Java一样，类的使用可以是带包名的类名，也支持导入：
 ```
 <data>
@@ -328,13 +330,13 @@ android:onClick="@{(view)->presenter.click(view,task)}"
         type="com.example.databindingtest.User"/>
 </data>
 ```
-```java.lang```包下的类不需要导入，可以直接使用
+```java.lang``` 包下的类不需要导入，可以直接使用
 ```
 <variable
     name="str"
     type="String"/>
 ```
-在布局文件中可以直接使用类的静态变量和方法，不需要调用```ViewDataBinding.setXxx()```
+在布局文件中可以直接使用类的静态变量和方法，不需要调用```ViewDataBinding.setXxx()``` 
 ```
 public class StaticClass
 {
@@ -395,8 +397,10 @@ android:text="@{map["key"]}"
 ```
 android:text='@{map["key"]}'
 ```
-######Binding类名自定义
-```Binding```类的类名可以自定义：
+###### Binding类名自定义
+
+```Binding``` 类的类名可以自定义：
+
 ```
 <data class="ContactItem">
     ...
@@ -408,8 +412,10 @@ android:text='@{map["key"]}'
     ...
 </data>
 ```
-######DataBinding运算符和空检测
-```DataBinding```的表达式是支持简单的运算符的
+
+###### DataBinding运算符和空检测
+
+```DataBinding``` 的表达式是支持简单的运算符的
 - Mathematical （数学计算符） + - / * %
 - String concatenation（字符串拼接符） +
 - Logical（逻辑运算符） && ||
@@ -453,7 +459,7 @@ android:text="@{user.displayName != null ? user.displayName : user.lastName}"
       android:onClick="@{(button)->user.click(button)}"/>
 ```
 如果```user```对象为空，那么```user.lastName```会被分配它的默认值，对象是```null```，```int```是```0```等等；TextView的点击事件会相当于没有设置。
-######资源使用
+###### 资源使用
 在表达式中使用xml文件定义的资源是可以的：
 ```
 android:padding="@{large? @dimen/largePadding : @dimen/smallPadding}"
@@ -470,7 +476,7 @@ android:padding="@{large? @dimen/largePadding : @dimen/smallPadding}"
 |color int	|@color	|@color|
 |ColorStateList	|@color	|@colorStateList|
 
-###观察者对象
+### 观察者对象
 在我们目前的代码中，如果对象改变了某个属性，```UI```是无法自动更新的，其实很好理解，在```User.setFirstName()```方法中，它只是改变了```user```类的属性，而没有通知```UI```层，```DataBinding```已经封装好了通知```UI```层的方法：
 ```
 public class User extends BaseObservable {
@@ -512,7 +518,7 @@ valueAnimator.start();
 ```
 凡是在```layout```文件里面出现了的属性，均可以在```BR```类里面找到其的对应。
 
-######ObservableFields
+###### ObservableFields
 使用```@Bindable```注解并调用```notifyPropertyChanged(BR.xxx)```方法能达到自动更新```UI```的目的，可是过于繁琐，所以```DataBinding```为我们封装好了更简单易用的类```
 ObservableFields```，它的源代码很简单：
 ```
@@ -610,7 +616,7 @@ user.put("lastName","dufjklsg");
 在布局文件和java代码上的写法和普通集合基本一致。
 如果```key```不是字符串而是数字下标，则使用```ObservableArrayList```和之前```ArrayList```的用法在形式上基本上一致。
 
-###生成Binding
+### 生成Binding
 之前我们已经展示了一种生成```Binding```类绑定```Activity```的方法
 ```
  mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
@@ -679,7 +685,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyViewHo
 }
 ```
 
-######自动生成控件对象
+###### 自动生成控件对象
 在生成```Binding```类的同时，```DataBinding```会根据我们在布局文件中设置的```id```自动生成对应的字段：
 ```
 <Button
@@ -697,7 +703,7 @@ public final Button buttonTest;
 mBinding.buttonTest.setText("");
 ```
 这就是我们完全没必要使用```findViewById()```了。
-######变量的set，get方法
+###### 变量的set，get方法
 正如我们之前所看到的那样，我们在```data```标签下所申明的变量会生成对应的```set```，```get```方法:
 ```
 <variable
@@ -708,7 +714,7 @@ mBinding.buttonTest.setText("");
 mBinding.setUser(mUser);
 mBinding.getUser();
 ```
-###属性setters
+### 属性setters
 对于在布局文件中控件的每一个用表达式描述的属性，```DataBinding```会试着寻找方法来设置属性。属性的名称空间不必匹配，仅仅根据属性名本身。例如，用表达式关联的```TextView```的属性```android:text```会寻找方法```setText(String)```,如果表达式返回的是```int```，则会寻找方法```setText(int)```。如果在已给出的属性中没有某一个属性名，但是有```set```方法,那么我们能很简单的设置属性。例如对于```DrawerLayout```，他有方法```public void setScrimColor(@ColorInt int color)```但是没有属性```android:scrimColor```，我们可以自动的设置上这个属性：
 ```
 <android.support.v4.widget.DrawerLayout
@@ -717,7 +723,7 @@ mBinding.getUser();
     app:scrimColor="@{@color/scrim}"
     app:drawerListener="@{fragment.drawerListener}"/>
 ```
-基于此，我们就能很简单的自定义控件，而不必去写属性值的```xml```文件，例如写一个能设置头的TextView：
+基于此，我们就能很简单的自定义控件，而不必去写属性值的```xml``` 文件，例如写一个能设置头的TextView：
 ```
 public class HeadTextView extends android.support.v7.widget.AppCompatTextView
 {
@@ -767,12 +773,11 @@ public class HeadTextView extends android.support.v7.widget.AppCompatTextView
 mBinding.setHead("电话号码：");
 ```
 
-![简单自定义控件](http://upload-images.jianshu.io/upload_images/2292129-a51adea995ded609.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 当然，这个自定义控件还有更多细节需要完善。
 
 注意，```app:startText```的属性值必须要是表达式，而不能像常规的那样写成```app:startText="电话号码："```，只有表达式才能引起```DataBinding```的机制。不过可以写成```app:startText="@{@string/phone}"```，因为表达式里是可以引用资源的。
 
-一些属性有```set```方法但是名称不匹配，可以使用```BindingMethods```注解来联系起方法和属性，例如对于```android:hint```属性，它对应的方法是``` setImageTintList(ColorStateList)```，而不是```setTint```,可以在类的上面加上以下注解来完成匹配：
+一些属性有```set```方法但是名称不匹配，可以使用```BindingMethods```注解来联系起方法和属性，例如对于```android:hint```属性，它对应的方法是```setImageTintList(ColorStateList)```，而不是```setTint```,可以在类的上面加上以下注解来完成匹配：
 ```
 @BindingMethods({
        @BindingMethod(type = ImageView.class,
@@ -902,8 +907,7 @@ com.example.databindingtest E/AttrAdapter: oldPadding=0 newPadding=10
     }
 ```
 
-![DataBinding学习笔记](http://upload-images.jianshu.io/upload_images/2292129-df2800f20c6b575b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-###结语
+### 结语
 至此，```DataBinding```的主要特性已经学习完毕了，绝大部分内容只是对[官方文档](https://developer.android.google.cn/topic/libraries/data-binding/index.html#custom_setters)的简单翻译。
 在这里我想说一句，学习新的知识最正确的方式是直接看官方文档，因为那是第一手的资料，如果英文实在是太差，才考虑去看别人写的相关文章。
 
