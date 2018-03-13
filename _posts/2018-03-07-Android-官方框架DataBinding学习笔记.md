@@ -4,7 +4,7 @@ title:        Android-官方框架DataBinding学习笔记           # 标题
 subtitle:     Android-官方框架DataBinding学习笔记           # 副标题
 date:         2018-03-07                                    # 时间
 author:       xingxingxiaoyu                                # 作者
-header-img:   "img/IMG_054.jpg"                             # 这篇文章标题背景图片
+header-img:   "img/home_background.png"                             # 这篇文章标题背景图片
 catalog:      true                                          # 是否归档
 tags:                                                       # 标签
     - Android

@@ -4,7 +4,7 @@ title:        DataBinding的使用—换肤方案的实现             # 标题
 subtitle:     DataBinding的使用—换肤方案的实现             # 副标题
 date:         2018-03-07                                    # 时间
 author:       xingxingxiaoyu                                # 作者
-header-img:   "img/IMG_059.jpg"                             # 这篇文章标题背景图片
+header-img:   "img/home_background.png"                             # 这篇文章标题背景图片
 catalog:      true                                          # 是否归档
 tags:                                                       # 标签
     - Android
